@@ -120,11 +120,10 @@ All runnable examples live in the **`chakracore-examples`** crate and are built 
 
 ```text
 > cargo run -p chakracore-examples --bin multiply
-cargo run -p chakracore-examples --bin multiply
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.17s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
      Running `target\debug\multiply.exe`
-191 * 7 = 1337
-multiply(191, 7) = 1337
+direct call: 191 * 7 = 1337
+global eval: multiply(191, 7) = 1337
 ```
 
 ---
