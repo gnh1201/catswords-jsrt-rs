@@ -6,7 +6,7 @@
 
 This project aims to keep all `unsafe` code strictly inside the low-level FFI crate, while offering a small, ergonomic, and predictable API surface for embedding ChakraCore in Rust applications.
 
-Inspired by [@darfink’s chakracore-rs implementation](https://github.com/darfink/chakracore-rs?utm_source=catswords), which is no longer maintained. This workspace is a clean reimplementation, not a fork, and I have made efforts to maintain compatibility.
+Inspired by [@darfink’s Rust wrapper](https://github.com/darfink/chakracore-rs?utm_source=catswords), which is outdated. I rewrote it from scratch with compatibility in mind.
 
 ---
 
