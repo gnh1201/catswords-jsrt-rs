@@ -166,13 +166,15 @@ cargo run -p chakracore-examples --bin multiply
 ```rust
 extern crate chakracore as js;
 
-fn main() {
-    let runtime = js::Runtime::new().unwrap();
-    let context = js::Context::new(&runtime).unwrap();
-    let guard = context.make_current().unwrap();
-
-    let result = js::script::eval(&guard, "5 + 5").unwrap();
-    assert_eq!(result.to_integer(&guard).unwrap(), 10);
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let runtime = js::Runtime::new()?;
+    let context = js::Context::new(&runtime)?;
+    let guard = context.make_current()?;
+    let result = js::script::eval(&guard, "5 + 5")?;
+    let value = result.to_integer(&guard)?;
+    assert_eq!(value, 10);
+    println!("5 + 5 = {}", value);
+    Ok(())
 }
 ```
 
