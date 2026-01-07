@@ -155,6 +155,17 @@ All runnable examples live in the **`chakracore-examples`** crate and are built 
 * `hello_world`
 * `multiply`
 
+### Example console messages
+
+```text
+> cargo run -p chakracore-examples --bin multiply
+cargo run -p chakracore-examples --bin multiply
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.17s
+     Running `target\debug\multiply.exe`
+191 * 7 = 1337
+multiply(191, 7) = 1337
+```
+
 ---
 
 ### Windows
