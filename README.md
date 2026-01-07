@@ -79,11 +79,6 @@ fn main() {
 }
 ```
 
-## Notes / Next steps
-
-- The callback trampoline sets a very simple exception (undefined). For production, create a real JS Error object.
-- If you store `Value` long-term, consider binding `JsAddRef/JsRelease` and implement a GC rooting strategy.
-
 ## Join the community
 I am always open. Collaboration, opportunities, and community activities are all welcome.
 

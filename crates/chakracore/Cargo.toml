@@ -26,5 +26,6 @@ default = []
 
 [dependencies]
 chakracore-sys = { path = "../chakracore-sys", version = "0.3.0" }
+thiserror = "2"
 
 [dev-dependencies]

@@ -86,6 +86,35 @@ extern "C" {
         argument_count: u16,
         result: *mut JsValueRef,
     ) -> JsErrorCode;
+	
+    pub fn JsCreateString(
+        content: *const u8,
+        length: usize,
+        value: *mut JsValueRef,
+    ) -> JsErrorCode;
+
+    pub fn JsCreateError(message: JsValueRef, error: *mut JsValueRef) -> JsErrorCode;
+
+    pub fn JsCreateTypeError(message: JsValueRef, error: *mut JsValueRef) -> JsErrorCode;
+
+    pub fn JsAddRef(reference: JsValueRef, count: *mut u32) -> JsErrorCode;
+    pub fn JsRelease(reference: JsValueRef, count: *mut u32) -> JsErrorCode;
+
+    pub fn JsGetGlobalObject(global_object: *mut JsValueRef) -> JsErrorCode;
+
+    pub fn JsGetPropertyIdFromName(name: *const u16, property_id: *mut JsPropertyIdRef)
+        -> JsErrorCode;
+
+    pub fn JsGetProperty(object: JsValueRef, property_id: JsPropertyIdRef, value: *mut JsValueRef)
+        -> JsErrorCode;
+
+    pub fn JsSetProperty(object: JsValueRef, property_id: JsPropertyIdRef, value: JsValueRef, use_strict: bool)
+        -> JsErrorCode;
+
+    pub fn JsCreateObject(object: *mut JsValueRef) -> JsErrorCode;
+
+    pub fn JsDeleteProperty(object: JsValueRef, property_id: JsPropertyIdRef, use_strict: bool, result: *mut JsValueRef)
+        -> JsErrorCode;
 
     // Recommended additions for better ergonomics / correctness
     pub fn JsGetUndefinedValue(undefined_value: *mut JsValueRef) -> JsErrorCode;

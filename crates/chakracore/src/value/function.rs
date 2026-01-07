@@ -1,4 +1,4 @@
-use crate::error::{ok, Error, Result};
+use crate::error::{ok, Result};
 use crate::guard::Guard;
 use crate::value::Value;
 use chakracore_sys as sys;
@@ -73,7 +73,7 @@ impl Drop for Function {
 }
 
 unsafe extern "C" fn native_trampoline(
-    callee: sys::JsValueRef,
+    _callee: sys::JsValueRef,
     _is_construct_call: bool,
     arguments: *const sys::JsValueRef,
     argument_count: u16,
@@ -113,13 +113,20 @@ unsafe extern "C" fn native_trampoline(
 
     match cb(&guard, info) {
         Ok(v) => v.raw,
-        Err(Error(_code)) => {
-            // Best effort: set a JS exception = undefined (improve later to real Error object)
-            if let Ok(undef) = Value::undefined(&guard) {
-                let _ = sys::JsSetException(undef.raw);
-                return undef.raw;
+        Err(e) => {
+            // thiserror v2: Display is generated from #[error("...")]
+            let msg = format!("{}", e);
+
+            if let Ok(js_err) = Value::error_from_message(&guard, &msg) {
+            let _ = sys::JsSetException(js_err.raw);
+                return js_err.raw;
             }
-            callee
+
+            // Fallback to undefined if error creation fails
+            let mut undef = std::ptr::null_mut();
+            let _ = sys::JsGetUndefinedValue(&mut undef);
+            let _ = sys::JsSetException(undef);
+            undef
         }
     }
 }
