@@ -2,7 +2,7 @@
 
 [![Discord chat](https://img.shields.io/discord/359930650330923008?logo=discord)](https://discord.gg/XKG5CjtXEj?utm_source=catswords)
 
-**catswords-jsrt-rs** provides minimal ChakraCore bindings for Rust. (Experimental)
+**catswords-jsrt-rs** provides minimal [ChakraCore](https://github.com/chakra-core/ChakraCore?utm_source=catswords) bindings for Rust. (Experimental)
 
 This project aims to keep all `unsafe` code strictly inside the low-level FFI crate, while offering a small, ergonomic, and predictable API surface for embedding ChakraCore in Rust applications.
 
