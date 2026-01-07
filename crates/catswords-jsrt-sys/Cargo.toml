@@ -20,7 +20,7 @@ categories = ["external-ffi-bindings"]
 
 links = "ChakraCore"
 build = "build.rs"
-publish = false
+publish = true
 
 [lib]
 name = "catswords_jsrt_sys"
