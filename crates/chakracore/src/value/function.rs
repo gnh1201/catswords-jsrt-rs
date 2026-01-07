@@ -1,6 +1,7 @@
 use crate::error::{ok, Result};
 use crate::guard::Guard;
 use crate::value::Value;
+use crate::runtime::Runtime;
 use chakracore_sys as sys;
 use std::ffi::c_void;
 
@@ -17,11 +18,14 @@ pub struct Function {
 }
 
 impl Function {
-    pub fn new(_guard: &Guard<'_>, cb: Box<Callback>) -> Self {
+    pub fn new(runtime: &Runtime, _guard: &Guard<'_>, cb: Box<Callback>) -> Self {
         // Box<Callback> is a fat pointer -> cannot cast to void* directly.
         // So allocate it again: Box<Box<Callback>> is a thin pointer.
         let outer: Box<Box<Callback>> = Box::new(cb);
         let state_ptr = Box::into_raw(outer) as *mut c_void;
+
+        // runtime owns the callback_state lifetime
+        runtime.register_callback_state(state_ptr);
 
         let mut func: sys::JsValueRef = std::ptr::null_mut();
         unsafe {
@@ -61,14 +65,9 @@ impl Function {
 
 impl Drop for Function {
     fn drop(&mut self) {
-        if !self.state_ptr.is_null() {
-            unsafe {
-                // Reconstruct Box<Box<Callback>> and drop it to free memory.
-                let _outer: Box<Box<Callback>> = Box::from_raw(self.state_ptr);
-                // dropped here
-            }
-            self.state_ptr = std::ptr::null_mut();
-        }
+        // Do NOT free callback_state here.
+        // Runtime will free all callback states after JsDisposeRuntime.
+        self.state_ptr = std::ptr::null_mut();
     }
 }
 
@@ -129,4 +128,10 @@ unsafe extern "C" fn native_trampoline(
             undef
         }
     }
+}
+
+pub(crate) unsafe fn free_callback_state(p: *mut c_void) {
+    // p was created from Box::into_raw(Box<Box<Callback>>) as *mut c_void
+    let _outer: Box<Box<Callback>> = Box::from_raw(p as *mut Box<Callback>);
+    // drop happens here
 }

@@ -6,7 +6,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let guard = context.make_current()?;
 
     // Create a JS function backed by a Rust closure
-    let multiply = js::value::Function::new(&guard, Box::new(|guard, info| {
+    let multiply = js::value::Function::new(&runtime, &guard, Box::new(|guard, info| {
         if info.arguments.len() != 2 {
             return Err(js::err_msg(
                 js::JsErrorCode::JsErrorInvalidArgument,
@@ -29,6 +29,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     assert_eq!(value, 1337);
     println!("191 * 7 = {}", value);
+	
+    // Register as global function: global.multiply = <function>
+    let fval: js::value::Value = multiply.into();
+    context.set_global(&guard, "multiply", &fval)?;
+
+    // Now JS code can call it
+    let result2 = js::script::eval(&guard, "multiply(191, 7)")?;
+    let value = result2.to_integer(&guard)?;
+
+    assert_eq!(value, 1337);
+    println!("multiply(191, 7) = {}", value);
 
     Ok(())
 }
