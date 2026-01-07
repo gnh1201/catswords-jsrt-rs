@@ -1,12 +1,12 @@
-# chakracore-rs
+# catswords-jsrt-rs
 
 [![Discord chat](https://img.shields.io/discord/359930650330923008?logo=discord)](https://discord.gg/XKG5CjtXEj?utm_source=catswords)
 
-**chakracore-rs** provides minimal ChakraCore bindings for Rust. (Experimental)
+**catswords-jsrt-rs** provides minimal ChakraCore bindings for Rust. (Experimental)
 
 This project aims to keep all `unsafe` code strictly inside the low-level FFI crate, while offering a small, ergonomic, and predictable API surface for embedding ChakraCore in Rust applications.
 
-Inspired by [@darfink’s chakracore-rs implementation](https://github.com/darfink/chakracore-rs?utm_source=catswords), which is no longer maintained. This workspace is a clean reimplementation.
+Inspired by [@darfink’s catswords-jsrt-rs implementation](https://github.com/darfink/catswords-jsrt-rs?utm_source=catswords), which is no longer maintained. This workspace is a clean reimplementation.
 
 ---
 
@@ -277,4 +277,4 @@ I am always open. Collaboration, opportunities, and community activities are all
 * ActivityPub [@catswords_oss@catswords.social](https://catswords.social/@catswords_oss?utm_source=catswords)
 * XMPP [catswords@conference.omemo.id](xmpp:catswords@conference.omemo.id?join)
 * [Join Catswords OSS on Microsoft Teams (teams.live.com)](https://teams.live.com/l/community/FEACHncAhq8ldnojAI?utm_source=catswords)
-* [Join Catswords OSS #chakracore-rs on Discord (discord.gg)](https://discord.gg/jVvhB8N7tb?utm_source=catswords)
+* [Join Catswords OSS #catswords-jsrt-rs on Discord (discord.gg)](https://discord.gg/jVvhB8N7tb?utm_source=catswords)
