@@ -1,4 +1,5 @@
 use crate::runtime::Runtime;
+use crate::context::Context;
 use catswords_jsrt_sys as sys;
 
 pub struct Guard<'rt> {
@@ -15,6 +16,10 @@ impl<'rt> Guard<'rt> {
 
     pub fn runtime(&self) -> &'rt Runtime {
         self.runtime
+    }
+
+    pub fn context(&self) -> Context<'rt> {
+        Context::from_raw(self.runtime, self.current)
     }
 }
 

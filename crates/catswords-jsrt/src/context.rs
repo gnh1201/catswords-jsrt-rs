@@ -52,4 +52,8 @@ impl<'rt> Context<'rt> {
         }
         Ok(())
     }
+
+    pub(crate) fn from_raw(runtime: &'rt Runtime, raw: sys::JsContextRef) -> Self {
+        Self { raw, runtime }
+    }
 }

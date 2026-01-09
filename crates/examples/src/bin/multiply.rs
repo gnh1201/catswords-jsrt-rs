@@ -29,11 +29,9 @@ fn scenario_direct_call(guard: &js::Guard, multiply: &js::value::Function) -> An
     Ok(())
 }
 
-fn scenario_global_eval(
-    context: &js::Context,
-    guard: &js::Guard,
-    multiply: js::value::Function,
-) -> AnyResult<()> {
+fn scenario_global_eval(guard: &js::Guard, multiply: js::value::Function) -> AnyResult<()> {
+    let context = guard.context();
+
     let fval: js::value::Value = multiply.into();
     context.set_global(guard, "multiply", &fval)?;
 
@@ -53,7 +51,7 @@ fn main() -> AnyResult<()> {
     let multiply = make_multiply(&guard);
 
     scenario_direct_call(&guard, &multiply)?;
-    scenario_global_eval(&context, &guard, multiply)?;
+    scenario_global_eval(&guard, multiply)?;
 
     Ok(())
 }
