@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "catswords-jsrt"
-version = "0.3.1"
+version = "0.3.2"
 dependencies = [
  "catswords-jsrt-sys",
  "thiserror",
@@ -12,7 +12,7 @@ dependencies = [
 
 [[package]]
 name = "catswords-jsrt-examples"
-version = "0.3.0"
+version = "0.3.2"
 dependencies = [
  "catswords-jsrt",
 ]

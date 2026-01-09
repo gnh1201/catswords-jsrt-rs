@@ -34,7 +34,7 @@ impl<'rt> Context<'rt> {
         })
     }
 
-    pub fn set_global(&self, _guard: &Guard<'_>, name: &str, value: &Value) -> Result<()> {
+    pub fn set_global(&self, name: &str, value: &Value) -> Result<()> {
         let mut global: sys::JsValueRef = std::ptr::null_mut();
         unsafe { ok_msg(sys::JsGetGlobalObject(&mut global), "JsGetGlobalObject failed")?; }
 
@@ -52,8 +52,13 @@ impl<'rt> Context<'rt> {
         }
         Ok(())
     }
+    
+    #[deprecated(note = "use set_global(name, value) instead")]
+    pub fn old_set_global(&self, _guard: &Guard<'_>, name: &str, value: &Value) -> Result<()> {
+        self.set_global(name, value)
+    }
 
-    pub(crate) fn from_raw(runtime: &'rt Runtime, raw: sys::JsContextRef) -> Self {
-        Self { raw, runtime }
+    pub(crate) fn from_raw(rt: &'rt Runtime, raw: sys::JsContextRef) -> Self {
+        Self { raw, runtime: rt }
     }
 }

@@ -33,7 +33,7 @@ fn scenario_global_eval(guard: &js::Guard, multiply: js::value::Function) -> Any
     let context = guard.context();
 
     let fval: js::value::Value = multiply.into();
-    context.set_global(guard, "multiply", &fval)?;
+    context.set_global("multiply", &fval)?;
 
     let result = js::script::eval(guard, "multiply(191, 7)")?;
     let value = result.to_integer(guard)?;
