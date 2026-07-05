@@ -29,5 +29,6 @@ default = []
 
 [build-dependencies]
 cc = { workspace = true }
+cmake = "0.1.58"
 
 [dependencies]
